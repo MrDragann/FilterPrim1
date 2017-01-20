@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilterPrim1.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace FilterPrim1.Controllers
             return View();
         }
 
+        [MyAction]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -41,5 +43,21 @@ namespace FilterPrim1.Controllers
             public int a { get; set; }
             public int b { get; set; }
         }
+
+        public class MyActionAttribute : FilterAttribute, IActionFilter
+        {
+            public void OnActionExecuting(ActionExecutingContext filterContext)
+            {
+                filterContext.HttpContext.Response.Write("<p>Действие выполнено</p>");
+            }
+
+            public void OnActionExecuted(ActionExecutedContext filterContext)
+            {
+                filterContext.HttpContext.Response.Write("<p>И это действие выполнено</p>");
+            }
+            
+        }
     }
+
+    
 }
