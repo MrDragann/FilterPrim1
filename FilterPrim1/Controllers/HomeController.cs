@@ -28,12 +28,18 @@ namespace FilterPrim1.Controllers
         }
 
         [HandleError(ExceptionType = typeof(DivideByZeroException), View = "DivideError")]
-        public ActionResult Divide()
+        public ActionResult Divide(Data model)
         {
-            int a = 10, b = 0;
-            int result = a / b;
+            //int a = 10, b = 2;
+            int result = model.a / model.b;
 
             return Content(result.ToString());
+        }
+
+        public class Data
+        {
+            public int a { get; set; }
+            public int b { get; set; }
         }
     }
 }
